@@ -1,74 +1,65 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Navbar from "./NavBar";
 import "../css/ai-tool.css";
 
-const aiTools = {
-  "image-generator": {
-    name: "AI Image Generator",
-    description: "Generate AI-powered images instantly.",
-    content: "Enter a description and generate an AI image.",
-    miniVersion: "image-generator-mini",
-    visitUrl: "https://deepai.org/machine-learning-model/text2img",
-  },
-  chatbot: {
-    name: "Chatbot AI",
-    description: "A smart AI chatbot for instant responses.",
-    content: "Chat with an AI assistant.",
-    miniVersion: "chatbot-mini",
-    visitUrl: "https://chat.openai.com/",
-  },
-  "code-assistant": {
-    name: "Code Assistant",
-    description: "AI that helps you write better code.",
-    content: "AI-powered coding suggestions.",
-    miniVersion: "code-assistant-mini",
-    visitUrl: "https://github.com/copilot",
-  },
-  "speech-to-text": {
-    name: "Speech to Text",
-    description: "Convert spoken words into text easily.",
-    content: "Speak into your microphone, and AI will transcribe your words.",
-    miniVersion: "speech-to-text-mini",
-    visitUrl: "https://otter.ai/",
-  },
-};
-
 const AITool = () => {
   const { toolId } = useParams();
-  const navigate = useNavigate();
+  const [tool, setTool] = useState(null);
 
-  const tool = aiTools[toolId];
+  useEffect(() => {
+    async function fetchTool() {
+      try {
+        const res = await fetch(`http://localhost:4000/tool/${toolId}`);
+        const data = await res.json();
+        if (res.ok && data.isvalid) {
+          setTool(data.data);
+        } else {
+          console.error("Tool not found");
+        }
+      } catch (error) {
+        console.error("Error fetching tool:", error);
+      }
+    }
+    fetchTool();
+  }, [toolId]);
 
-  if (!tool) {
-    return (
-      <>
-        <Navbar />
-        <div className="ai-tool-container">
-          <h1>Tool Not Found</h1>
-          <p>The requested AI tool does not exist.</p>
-        </div>
-      </>
-    );
-  }
+  // Extract YouTube embed link
+  const getYouTubeEmbedUrl = (url) => {
+    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]+)/);
+    return match ? `https://www.youtube.com/embed/${match[1]}` : null;
+  };
+
+  if (!tool) return <div>Loading...</div>;
 
   return (
     <>
       <Navbar />
-      <div className="ai-tool-container">
+      <div className="tool-details-container">
         <h1>{tool.name}</h1>
-        <p>{tool.description}</p>
-        <div className="tool-content">
-          <p>{tool.content}</p>
-        </div>
+        <p><strong>Category:</strong> {tool.category}</p>
+        <p className="description">{tool.description}</p>
 
-        <div className="ai-tool-buttons">
-          <button onClick={() => navigate(`/mini/${tool.miniVersion}`)} className="btn try-btn">
-            Try Mini Version
-          </button>
-          <button onClick={() => window.open(tool.visitUrl, "_blank")} className="btn visit-btn">
-            Visit {tool.name}
-          </button>
-        </div>
+        {tool.youtubeUrl && (
+          <div className="video-container">
+            <iframe
+              width="100%"
+              height="400"
+              src={getYouTubeEmbedUrl(tool.youtubeUrl)}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              title="Tutorial Video"
+            ></iframe>
+          </div>
+        )}
+        {tool.link && (
+          <div className="visit-button-container">
+            <a href={tool.link} target="_blank" rel="noopener noreferrer">
+              <button className="visit-tool-btn">Visit AI Tool</button>
+            </a>
+          </div>
+        )}
       </div>
     </>
   );

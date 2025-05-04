@@ -1,80 +1,106 @@
 /* Home Page Container */
 .home-container {
-    text-align: center;
-    padding: 40px 20px;
-  }
-  
-  /* Headings */
-  .intro {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .sub-intro {
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 30px;
-  }
-  
-  /* Tools Grid */
-  .tools-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 20px;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  /* Tool Card */
-  .tool-card {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    text-align: center;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .tool-card:hover {
-    transform: scale(1.05);
-  }
-  
-  /* Tool Image */
-  .tool-image {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    object-fit: cover;
-    margin-bottom: 10px;
-  }
-  /* Tool Name */
-  .tool-name {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  /* Tool Description */
-  .tool-description {
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 10px;
-  }
-  
-  /* Explore Button */
-  .explore-btn {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    font-size: 0.9rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease-in-out;
-  }
-  
-  .explore-btn:hover {
-    background: #0056b3;
-  }
-  
+  text-align: center;
+  padding: 40px 5%;
+  background-color: #f9f9f9;
+}
+
+/* Headings */
+.intro {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.sub-intro {
+  font-size: 1.3rem;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+/* Tools Grid */
+.tools-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+/* Tool Card */
+.tool-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.tool-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Tool Image */
+.tool-image {
+  max-width: 100%;
+  max-height: 200px;
+  height: auto;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #fafafa;
+  border-radius: 8px;
+}
+
+
+/* Tool Name */
+.tool-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #333;
+  margin: 15px 0 5px;
+}
+
+/* Tool Description */
+.tool-description {
+  font-size: 0.95rem;
+  color: #555;
+  padding: 0 15px 10px;
+  line-height: 1.5;
+}
+
+/* View More / View Less Toggle */
+.view-more {
+  display: inline-block;
+  color: #007bff;
+  cursor: pointer;
+  font-weight: 500;
+  margin-left: 5px;
+  transition: color 0.3s;
+}
+
+.view-more:hover {
+  color: #0056b3;
+}
+
+/* Explore Button */
+.explore-btn {
+  margin: 15px;
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.explore-btn:hover {
+  background: linear-gradient(135deg, #0056b3, #0099cc);
+}

@@ -1,0 +1,118 @@
+.admin-dashboard {
+    max-width: 900px;
+    margin: auto;
+    padding: 2rem;
+    font-family: "Segoe UI", sans-serif;
+    color: #333;
+  }
+  
+  h2, h3 {
+    text-align: center;
+    color: #444;
+  }
+.view-more{
+  cursor: pointer;
+  color: #0077ff;
+}
+  .tool-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  
+  .tool-form input,
+  .tool-form textarea {
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  .tool-form textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  
+  .form-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .tool-form button {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    background: #0077ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  
+  .tool-form .cancel {
+    background: #777;
+  }
+  
+  .tool-form button:hover {
+    opacity: 0.9;
+  }
+  
+  .error {
+    background: #ffe0e0;
+    padding: 0.8rem;
+    border-left: 4px solid red;
+    margin-bottom: 1rem;
+    color: red;
+    border-radius: 5px;
+  }
+  
+  .tool-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+  }
+  
+  .tool-table th,
+  .tool-table td {
+    border: 1px solid #ddd;
+    padding: 0.75rem;
+    text-align: left;
+  }
+  
+  .tool-table th {
+    background: #f3f3f3;
+  }
+  
+  .tool-table td a {
+    color: #0077ff;
+    text-decoration: none;
+  }
+  
+  .tool-table button {
+    margin-right: 6px;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .tool-table button:hover {
+    opacity: 0.9;
+  }
+  
+  .tool-table .delete {
+    background: #ff4d4d;
+    color: white;
+  }
+  
+  .tool-table button:not(.delete) {
+    background: #0077ff;
+    color: white;
+  }
+  

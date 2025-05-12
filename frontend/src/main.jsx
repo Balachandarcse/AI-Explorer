@@ -12,6 +12,7 @@ import AdminDashboard from './components/admin .jsx';
 import Category from './components/Category.jsx';
 import SearchResults from './components/SearchResults.jsx';
 import About from './components/about.jsx';
+import Contact from './components/Contact.jsx';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     {/* <App /> */}
@@ -26,6 +27,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/search-results" element={<SearchResults />} />
         <Route path="/category" element={<Category />} />
         <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

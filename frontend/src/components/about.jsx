@@ -1,8 +1,11 @@
 import React from "react";
-import "../css/about.css"; // Optional: if you want custom styling
+import "../css/about.css";
+import Navbar from "./NavBar";
 
 const About = () => {
   return (
+    <>
+    <Navbar/>
     <div className="about-page">
       <h1>About Us</h1>
       <p>
@@ -30,6 +33,7 @@ const About = () => {
         Have questions or suggestions? Reach out to us via our <a href="/contact">Contact</a> page.
       </p>
     </div>
+    </>
   );
 };
 

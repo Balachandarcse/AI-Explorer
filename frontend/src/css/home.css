@@ -104,3 +104,24 @@
 .explore-btn:hover {
   background: linear-gradient(135deg, #0056b3, #0099cc);
 }
+
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.pagination-controls button {
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.view-more {
+  color: blue;
+  cursor: pointer;
+  margin-left: 5px;
+}

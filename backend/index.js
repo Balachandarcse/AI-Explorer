@@ -99,6 +99,33 @@ app.post("/login", async (req, res) => {
     }
 });
 
+// app.post('/insert-all', async (req, res) => {
+//   try {
+//     const aiToolsData=req.body;
+//     const insertedTools = [];
+//     const skippedTools = [];
+
+//     for (const tool of aiToolsData) {
+//       const exists = await ToolModel.findOne({ name: tool.name });
+//       if (exists) {
+//         skippedTools.push(tool.name);
+//         continue;
+//       }
+//       const newTool = new ToolModel(tool);
+//       await newTool.save();
+//       insertedTools.push(tool.name);
+//     }
+
+//     res.status(201).json({
+//       success: true,
+//       inserted: insertedTools.length,
+//       skipped: skippedTools.length,
+//       duplicates: skippedTools,
+//     });
+//   } catch (err) {
+//     res.status(500).json({ success: false, error: err.message });
+//   }
+// });
   
 app.post("/tools", async (req, res) => {
   let { name, description, link, category, logo, youtubeUrl } = req.body;
@@ -225,7 +252,7 @@ app.get("/toolsByCategory/:category", async (req, res) => {
     res.status(500).json({ message: "Server error", isvalid: false });
   }
 });
-
+ 
 app.get("/tools/search", async (req, res) => {
   const { query } = req.query;
 

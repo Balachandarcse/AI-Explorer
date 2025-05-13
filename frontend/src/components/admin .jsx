@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "../css/admin.css";
+import { Link } from "react-router-dom";
 
 const AdminDashboard = () => {
     const [tool, setTool] = useState({ name: "", description: "", link: "", category: "", logo: "", youtubeUrl: "" });
@@ -105,6 +106,9 @@ const AdminDashboard = () => {
 
     return (
         <div className="admin-dashboard">
+            <div className="logout-con">
+                <Link className="logout" to="/">Logout</Link>
+            </div>
             <h2>{editingId ? "Edit Tool" : "Add New AI Tool"}</h2>
             {error && <div className="error">{error}</div>}
             <form className="tool-form" onSubmit={handleSubmit}>
@@ -188,25 +192,25 @@ const AdminDashboard = () => {
                             </td>
                             <td>{t.category}</td>
                             <td>
-                            {expandedDescription === t._id
-                            ? t.description
-                            : t.description.length > 100
-                            ? `${t.description.substring(0, 100)}...`
-                            : t.description}
+                                {expandedDescription === t._id
+                                    ? t.description
+                                    : t.description.length > 100
+                                        ? `${t.description.substring(0, 100)}...`
+                                        : t.description}
 
-                        {/* View More / View Less toggle */}
-                        {t.description.length > 100 && (
-                            <span
-                                className="view-more"
-                                onClick={() =>
-                                    expandedDescription === t._id
-                                        ? handleViewLess()
-                                        : handleViewMore(t._id)
-                                }
-                            >
-                                {expandedDescription === t._id ? "View Less" : "View More"}
-                            </span>
-                        )}
+                                {/* View More / View Less toggle */}
+                                {t.description.length > 100 && (
+                                    <span
+                                        className="view-more"
+                                        onClick={() =>
+                                            expandedDescription === t._id
+                                                ? handleViewLess()
+                                                : handleViewMore(t._id)
+                                        }
+                                    >
+                                        {expandedDescription === t._id ? "View Less" : "View More"}
+                                    </span>
+                                )}
                             </td>
                             <td>
                                 <button onClick={() => handleEdit(t)}>Edit</button>

@@ -7,6 +7,8 @@ const cors = require("cors");
 const axios = require("axios");
 const User=require("./models/User");
 const ToolModel=require("./models/Tool");
+const Admin=require("./models/Admin")
+const nodemailer = require("nodemailer");
 
 const app = express();
 app.use(express.json());
@@ -135,7 +137,7 @@ app.post("/tools", async (req, res) => {
   link = link.trim();
   category = category.trim();
   logo = logo.trim();
-  youtubeUrl = youtubeUrl ? youtubeUrl.trim() : ""; // youtubeUrl is optional
+  youtubeUrl = youtubeUrl ? youtubeUrl.trim() : ""; 
 
   if (!name || !description || !link || !category || !logo || !youtubeUrl) {
     return res.status(400).json({ error: "All required fields must be provided" });
@@ -169,41 +171,34 @@ app.post("/tools", async (req, res) => {
 
 app.put("/tools/:id", async (req, res) => {
   const { id } = req.params;
-  const { name, description, link, category, logo, youtubeUrl } = req.body;
+  let { name, description, link, category, logo, youtubeUrl } = req.body;
 
-  // Trim fields to remove any extra spaces
   name = name.trim();
   description = description.trim();
   link = link.trim();
   category = category.trim();
   logo = logo.trim();
-  youtubeUrl = youtubeUrl ? youtubeUrl.trim() : ""; // youtubeUrl is optional, but if provided, it should be trimmed.
-
-  // Check if all required fields are provided
+  youtubeUrl = youtubeUrl ? youtubeUrl.trim() : ""; 
   if (!name || !description || !link || !category || !logo || !youtubeUrl) {
     return res.status(400).json({ error: "All required fields must be provided" });
   }
 
   try {
-    // Check if a tool with the same name and link already exists (excluding the current tool)
     const existing = await ToolModel.findOne({ name, link, _id: { $ne: id } });
     if (existing) {
       return res.status(409).json({ error: "Another tool with the same name and link exists" });
     }
 
-    // Update the tool with the new information
     const updatedTool = await ToolModel.findByIdAndUpdate(
       id,
-      { name, description, link, category, logo, youtubeUrl },  // Include youtubeUrl here
+      { name, description, link, category, logo, youtubeUrl }, 
       { new: true, runValidators: true }
     );
 
-    // Check if the tool was found and updated
     if (!updatedTool) {
       return res.status(404).json({ message: "Tool not found" });
     }
 
-    // Send the updated tool data in the response
     res.status(200).json({ message: "Tool updated successfully", tool: updatedTool });
   } catch (error) {
     console.error("PUT Error:", error);
@@ -212,7 +207,7 @@ app.put("/tools/:id", async (req, res) => {
 });
 
   
-
+ 
   app.delete("/tools/:id", async (req, res) => {
     const { id } = req.params;
   
@@ -230,7 +225,6 @@ app.put("/tools/:id", async (req, res) => {
     }
   });
   
-  // GET /categories - return list of unique categories
 app.get("/categories", async (req, res) => {
   try {
     const categories = await ToolModel.distinct("category");
@@ -241,7 +235,6 @@ app.get("/categories", async (req, res) => {
   }
 });
 
-// GET /toolsByCategory/:category - return tools by category
 app.get("/toolsByCategory/:category", async (req, res) => {
   const { category } = req.params;
   try {
@@ -257,11 +250,10 @@ app.get("/tools/search", async (req, res) => {
   const { query } = req.query;
 
   try {
-    // Search for tools whose name or description contains the search query (case-insensitive)
     const tools = await ToolModel.find({
       $or: [
-        { name: { $regex: query, $options: "i" } }, // Match tool names (case-insensitive)
-        { description: { $regex: query, $options: "i" } } // Match tool descriptions
+        { name: { $regex: query, $options: "i" } }, 
+        { description: { $regex: query, $options: "i" } } 
       ]
     });
 
@@ -273,6 +265,92 @@ app.get("/tools/search", async (req, res) => {
   } catch (error) {
     console.error("Search error:", error);
     res.status(500).json({ isvalid: false, message: "Server error" });
+  }
+});
+ 
+app.post("/admin", async (req, res) => {
+  const { name, email, password } = req.body;
+  console.log(req.body);
+
+  try {
+    const existingAdmin = await Admin.findOne({ email });
+    if (existingAdmin) {
+      return res.status(400).json({ message: "Admin already exists" });
+    }
+    const hashedPassword = await bcrypt.hash(password.toString(), 10);
+
+    const nAdmin = new Admin({ name, email, password: hashedPassword });
+    await nAdmin.save();
+
+    return res.status(200).json({ message: "ok" });
+  } catch (e) {
+    console.error("Admin error:", e.message);
+    return res.status(500).json({ message: "Internal error for admin" });
+  }
+});
+
+app.post("/admin-login", async (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ message: "All fields are required" });
+    }
+
+    try {
+        const admin = await Admin.findOne({ email });
+        if (!admin) {
+            return res.status(400).json({ message: "User not found", isvalid: false });
+        }
+
+        const isMatch = await bcrypt.compare(password, admin.password);
+        if (!isMatch) {
+            return res.status(401).json({ message: "Invalid credentials", isvalid: false });
+        }
+        const token = jwt.sign({ adminId: admin._id }, process.env.SECRET_KEY, { expiresIn: "1h" });
+
+        return res.status(200).json({
+            message: "Login successful",
+            token,
+            isvalid: true,
+            admin: { name: admin.name, email: admin.email }
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error", isvalid: false });
+    }
+});
+
+
+app.post("/contact", async (req, res) => {
+  const { name, email, message } = req.body;
+
+  if (!name || !email || !message) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,       
+        pass: process.env.EMAIL_PASS,       
+      },
+    });
+
+    const mailOptions = {
+      from: email,
+      to: process.env.EMAIL_USER,
+      subject: `Message from ${name}`,
+      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({ message: "Email sent successfully" });
+  } catch (error) {
+    console.error("Email error:", error);
+    res.status(500).json({ message: "Failed to send email" });
   }
 });
 

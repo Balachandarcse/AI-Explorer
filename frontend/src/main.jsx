@@ -13,6 +13,7 @@ import Category from './components/Category.jsx';
 import SearchResults from './components/SearchResults.jsx';
 import About from './components/about.jsx';
 import Contact from './components/Contact.jsx';
+import AdminLogin from './components/Admin_login.jsx';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     {/* <App /> */}
@@ -28,6 +29,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/category" element={<Category />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

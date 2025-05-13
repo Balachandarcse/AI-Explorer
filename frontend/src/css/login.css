@@ -1,81 +1,101 @@
 .login-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-    background: url('https://sdmntpreastus2.oaiusercontent.com/files/00000000-4e24-51f6-97f9-d1516f3023f6/raw?se=2025-04-04T06%3A59%3A41Z&sp=r&sv=2024-08-04&sr=b&scid=f3f5efac-e05d-576e-8b35-1a82eda534a3&skoid=ac1d63ad-0c69-4017-8785-7a50eb04382c&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-04-03T15%3A24%3A55Z&ske=2025-04-04T15%3A24%3A55Z&sks=b&skv=2024-08-04&sig=bkon81/gm1NDhit2TvOpGolnK2c9IEI4W9EVc9CaTZY%3D') no-repeat center center fixed;
-    background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("https://imgs.search.brave.com/1bmFnC7tchk0t41a5GWCDlBH_hhe1s4lQfBaoYe_dTo/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzgxLzQz/L2ZmLzgxNDNmZjI4/N2RjYjQxMmUzNjQ1/Y2IwNDMxN2NmMmYw/LmpwZw") no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.login h2 {
+  margin-bottom: 25px;
+  color: #222;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.input {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.input label {
+  font-size: 14px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.input input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.input input:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 5px rgba(13, 110, 253, 0.4);
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  background: #0d6efd;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #084fc7;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.98);
   }
-  
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Responsive for small screens */
+@media (max-width: 480px) {
   .login {
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    width: 350px;
-    text-align: center;
-    animation: fadeIn 0.5s ease-in-out;
+    padding: 30px 20px;
+    border-radius: 10px;
   }
-  
+
   .login h2 {
-    margin-bottom: 20px;
-    color: #333;
     font-size: 24px;
   }
-  
-  .input {
-    margin-bottom: 15px;
-    text-align: left;
-  }
-  
-  .input label {
-    font-size: 14px;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-    color: #555;
-  }
-  
-  .input input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.3s;
-  }
-  
-  .input input:focus {
-    border-color: #0e48da;
-  }
-  
+
   .btn {
-    width: 100%;
-    padding: 10px;
-    background: #0e48da;
-    color: white;
-    border: none;
-    border-radius: 6px;
     font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s ease;
   }
-  
-  .btn:hover {
-    background: #0e48da;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-  
+}

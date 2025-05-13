@@ -20,7 +20,7 @@ const Signup=()=>{
             console.log(res.data)
             if(res.data.isvalid){
                 alert("account created Successfully!");
-                navigator('/home');
+                navigator('/');
             }
             else{
                 alert("account creation failed!")
@@ -55,6 +55,7 @@ const Signup=()=>{
                 <button className="btn">SignUp</button>
             </form>
             <Link to="/">Already have an account?</Link>
+            
         </div>
         </div>
     )

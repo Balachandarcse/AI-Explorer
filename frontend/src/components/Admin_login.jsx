@@ -11,7 +11,7 @@ const AdminLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:4000/admin-login", {
+      const response = await axios.post("https://ai-explorer.onrender.com/admin-login", {
         email,
         password,
       });

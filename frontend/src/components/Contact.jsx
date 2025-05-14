@@ -12,7 +12,7 @@ const Contact = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:4000/contact", {
+      await axios.post("https://ai-explorer.onrender.com/contact", {
         name,
         email,
         message,

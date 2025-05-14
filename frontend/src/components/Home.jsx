@@ -25,7 +25,7 @@ const Home = () => {
   useEffect(() => {
     async function fetchTools() {
       try {
-        const res = await fetch("http://localhost:4000/availableTools");
+        const res = await fetch("https://ai-explorer.onrender.com/availableTools");
         const data = await res.json();
         if (res.ok && data.isvalid) {
           setTools(data.data);

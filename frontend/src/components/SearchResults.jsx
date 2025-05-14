@@ -25,7 +25,7 @@ const SearchResults = () => {
   useEffect(() => {
     const fetchSearchResults = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/tools/search?query=${searchQuery}`);
+        const response = await axios.get(`https://ai-explorer.onrender.com/tools/search?query=${searchQuery}`);
         if (response.data.isvalid && response.data.data.length > 0) {
           setSearchResults(response.data.data);
           setNoResults(false);

@@ -14,7 +14,7 @@ const Category = () => {
   useEffect(() => {
     async function fetchCategories() {
       try {
-        const res = await fetch("http://localhost:4000/categories");
+        const res = await fetch("https://ai-explorer.onrender.com/categories");
         const data = await res.json();
         if (res.ok) setCategories(data.categories);
       } catch (err) {
@@ -27,7 +27,7 @@ const Category = () => {
   const handleCategoryClick = async (category) => {
     setSelectedCategory(category);
     try {
-      const res = await fetch(`http://localhost:4000/toolsByCategory/${category}`);
+      const res = await fetch(`https://ai-explorer.onrender.com/toolsByCategory/${category}`);
       const data = await res.json();
       if (res.ok) setTools(data.tools);
     } catch (err) {

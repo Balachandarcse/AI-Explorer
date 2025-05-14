@@ -10,7 +10,7 @@ const AITool = () => {
   useEffect(() => {
     async function fetchTool() {
       try {
-        const res = await fetch(`http://localhost:4000/tool/${toolId}`);
+        const res = await fetch(`https://ai-explorer.onrender.com/tool/${toolId}`);
         const data = await res.json();
         if (res.ok && data.isvalid) {
           setTool(data.data);

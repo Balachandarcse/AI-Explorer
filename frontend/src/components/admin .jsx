@@ -22,7 +22,7 @@ const AdminDashboard = () => {
 
     const fetchTools = async () => {
         try {
-            const res = await fetch("http://localhost:4000/availableTools");
+            const res = await fetch("https://ai-explorer.onrender.com/availableTools");
             const data = await res.json();
             if (res.ok && data.isvalid) {
                 setTools(data.data);
@@ -48,8 +48,8 @@ const AdminDashboard = () => {
         }
 
         const url = editingId
-            ? `http://localhost:4000/tools/${editingId}`
-            : "http://localhost:4000/tools";
+            ? `https://ai-explorer.onrender.com/tools/${editingId}`
+            : "https://ai-explorer.onrender.com/tools";
 
         const method = editingId ? "PUT" : "POST";
 
@@ -92,7 +92,7 @@ const AdminDashboard = () => {
         if (!window.confirm("Are you sure you want to delete this tool?")) return;
 
         try {
-            const res = await fetch(`http://localhost:4000/tools/${id}`, { method: "DELETE" });
+            const res = await fetch(`https://ai-explorer.onrender.com/tools/${id}`, { method: "DELETE" });
             if (res.ok) {
                 alert("Tool deleted");
                 fetchTools();

@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../css/navbar.css";
-import axios from "axios"; // Ensure you have axios installed
+import axios from "axios"; 
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
   const [dropdown, setDropdown] = useState(false);
-  const [searchQuery, setSearchQuery] = useState(""); // Track search input
+  const [searchQuery, setSearchQuery] = useState(""); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,12 +16,10 @@ const Navbar = () => {
     }
   }, []);
 
-  // Handle search input change
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
-  // Redirect to search results page
   const handleSearch = () => {
     if (searchQuery.trim()) {
       navigate(`/search-results?query=${searchQuery}`);
